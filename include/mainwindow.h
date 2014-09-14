@@ -8,26 +8,26 @@
 #include "classicnoise.h"
 
 namespace Ui {
-class MainWindow;
+	class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+	explicit MainWindow(QWidget *parent = 0);
+	~MainWindow();
 
 public slots:
-    void timerUpdate();
+	void timerUpdate();
 
 private:
-    Ui::MainWindow *ui;
+	Ui::MainWindow *ui;
 
-    ClassicNoise noise;
-    QImage *image;
-    QTimer *timer;
+	ClassicNoise noise;
+	QImage *image;
+	QTimer *timer;
 };
 
 #endif // MAINWINDOW_H

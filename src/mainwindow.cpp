@@ -2,28 +2,28 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-    , timer(0)
-    , image(0)
+	: QMainWindow(parent)
+	, ui(new Ui::MainWindow)
+	, timer(0)
+	, image(0)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
-    image = new QImage(QSize(512, 512), QImage::Format_RGB32);
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
-    timer->start(100);
+	image = new QImage(QSize(512, 512), QImage::Format_RGB32);
+	timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+	timer->start(100);
 }
 
 MainWindow::~MainWindow()
 {
-    timer->stop();
-    delete timer;
-    delete ui;
+	timer->stop();
+	delete timer;
+	delete ui;
 }
 
 void MainWindow::timerUpdate()
 {
-    noise.Generate(image);
-    ui->label->setPixmap(QPixmap::fromImage(*image));
+	noise.Generate(image);
+	ui->label->setPixmap(QPixmap::fromImage(*image));
 }

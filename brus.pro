@@ -13,9 +13,11 @@ TEMPLATE = app
 
 SOURCES += src/main.cpp\
         src/mainwindow.cpp\
-        src/classicnoise.cpp
+        src/classicnoise.cpp \
+    src/simplexnoise.cpp
 
 INCLUDEPATH += $$PWD/include
-HEADERS += include/mainwindow.h include/classicnoise.h
+HEADERS += include/mainwindow.h include/classicnoise.h \
+    include/simplexnoise.h
 
 FORMS += ui/mainwindow.ui
