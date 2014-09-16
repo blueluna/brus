@@ -25,5 +25,5 @@ MainWindow::~MainWindow()
 void MainWindow::timerUpdate()
 {
 	noise.Generate(image);
-	ui->label->setPixmap(QPixmap::fromImage(*image));
+	// ui->label->setPixmap(QPixmap::fromImage(*image));
 }
