@@ -4,8 +4,8 @@
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 	, ui(new Ui::MainWindow)
-	, timer(0)
 	, image(0)
+    , timer(0)
 {
 	ui->setupUi(this);
 

@@ -2,7 +2,6 @@
 
 #include "openglwidget.h"
 
-#include <QtWidgets>
 #include <QtOpenGL>
 #include <QDebug>
 
@@ -167,9 +166,7 @@ void OpenGLWidget::UpdateViewBoxFromBounds()
 	double xoffset = ((xmax - xmin) / 2.0);
 	double yoffset = ((ymax - ymin) / 2.0);
 
-	float fxmin, fxmax, fymin, fymax;
-
-	double ratio = width() / static_cast<double>(height());
+    double ratio = width() / static_cast<double>(height());
 	if (ratio > 1.0) {
 		xoffset = (xoffset * ratio);
 		yoffset = yoffset;
@@ -177,11 +174,7 @@ void OpenGLWidget::UpdateViewBoxFromBounds()
 	else {
 		xoffset = xoffset;
 		yoffset = (yoffset / ratio);
-	}
-	fxmin = xcenter - xoffset;
-	fxmax = xcenter + xoffset;
-	fymin = ycenter - yoffset;
-	fymax = ycenter + yoffset;
+    }
 
 	viewBox.xmin = xcenter - xoffset;
 	viewBox.xmax = xcenter + xoffset;
@@ -333,7 +326,7 @@ void OpenGLWidget::BuildObject(const ShapeObject& shape)
 }
 */
 
-void OpenGLWidget::Zoom(const int32_t shapeIndex)
+void OpenGLWidget::Zoom(const int32_t /*shapeIndex*/)
 {
 	bounds.xmin = 10000.0;
 	bounds.xmax = -10000.0;
