@@ -15,13 +15,23 @@ SOURCES += src/main.cpp\
         src/mainwindow.cpp\
         src/classicnoise.cpp \
     src/simplexnoise.cpp \
-    src/openglwidget.cpp
+    src/openglwidget.cpp \
+    src/TMatrix.cpp \
+    src/TPoint.cpp \
+    src/TVertex.cpp \
+    src/T3DObject.cpp
 
 INCLUDEPATH += $$PWD/include
 HEADERS += include/mainwindow.h include/classicnoise.h \
     include/simplexnoise.h \
     include/openglwidget.h \
-    include/primitives.h
+    include/primitives.h \
+    include/TMatrix.h \
+    include/OpenGl.h \
+    include/TPoint.h \
+    include/TVertex.h \
+    include/T3DObject.h \
+    include/MathConstants.h
 
 FORMS += ui/mainwindow.ui
 
