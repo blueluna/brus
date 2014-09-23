@@ -6,9 +6,7 @@
 
 #include <stdint.h>
 
-#include "primitives.h"
-
-using namespace coldstar;
+#include "TBox.h"
 
 class OpenGLWidget
 	: public QGLWidget
@@ -16,27 +14,27 @@ class OpenGLWidget
 	Q_OBJECT
 
 protected:
-	QPoint						lastPos;
+    QPoint				lastPos;
 
-	int							textureMax;
-	int							vertexMax;
-	int							indexMax;
+    int					textureMax;
+    int					vertexMax;
+    int					indexMax;
 
-	Point<float>				*vertices;
-	uint32_t					vertexCount;
-	uint32_t					vertexAllocated;
+    TPoint      		*vertices;
+    uint32_t			vertexCount;
+    uint32_t			vertexAllocated;
 
-	bool						useShanders;
-	QGLShaderProgram			*shaderProgram;
-	int							shaderMatrix;
-	int							shaderVertices;
-	int							shaderColor;
+    bool				useShanders;
+    QGLShaderProgram	*shaderProgram;
+    int					shaderMatrix;
+    int					shaderVertices;
+    int					shaderColor;
 
-	Box<double>					bounds;
-	Box<double>					viewBox;
+    TBox                bounds;
+    TBox        		viewBox;
 
-	Point<float>				*polygon;
-	uint32_t					polygonVertexCount;
+    TPoint              *polygon;
+    uint32_t			polygonVertexCount;
 
 public:
 	explicit OpenGLWidget(QWidget *parent = 0);
@@ -57,8 +55,8 @@ protected:
 	void			UpdateViewBoxFromBounds();
 	void			UpdateViewMatrix();
 
-	Point<double>	translateCoordinate(const int x, const int y) const;
-	Point<double>	translateCoordinate(const QPoint &p) const;
+    TPoint          translateCoordinate(const int x, const int y) const;
+    TPoint          translateCoordinate(const QPoint &p) const;
 
 signals:
 	

@@ -108,14 +108,14 @@ void OpenGLWidget::mousePressEvent(QMouseEvent *event)
 	lastPos = event->pos();
 }
 
-Point<double> OpenGLWidget::translateCoordinate(const int x, const int y) const
+TPoint OpenGLWidget::translateCoordinate(const int x, const int y) const
 {
-	double xf = x * viewBox.Width() / width();
-	double yf = y * viewBox.Height() / height();
-	return Point<double>(xf, yf);
+    float xf = x * viewBox.Width() / width();
+    float yf = y * viewBox.Height() / height();
+    return TPoint(xf, yf);
 }
 
-Point<double> OpenGLWidget::translateCoordinate(const QPoint &p) const
+TPoint OpenGLWidget::translateCoordinate(const QPoint &p) const
 {
 	return translateCoordinate(p.x(), p.y());
 }
@@ -124,10 +124,10 @@ void OpenGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
 	int dx = event->x() - lastPos.x();
 	int dy = event->y() - lastPos.y();
-	Point<double> pt = translateCoordinate(dx, dy);
+    TPoint pt = translateCoordinate(dx, dy);
 
 	if (event->buttons() & Qt::LeftButton) {
-		viewBox.Move(-pt.x, pt.y);
+        viewBox.Move(-pt.x(), pt.y());
 	}
 	lastPos = event->pos();
 	UpdateViewMatrix();
@@ -136,14 +136,14 @@ void OpenGLWidget::mouseMoveEvent(QMouseEvent *event)
 
 void OpenGLWidget::wheelEvent(QWheelEvent *event)
 {
-	double numDegrees = -event->delta() / 8.0;
-	double numSteps = numDegrees / 15.0;
-	double mouse_xd = event->x() / static_cast<double>(width());
-	double mouse_yd = event->y() / static_cast<double>(height());
+    float numDegrees = -event->delta() / 8.0;
+    float numSteps = numDegrees / 15.0;
+    float mouse_xd = event->x() / static_cast<float>(width());
+    float mouse_yd = event->y() / static_cast<float>(height());
 
 	if (event->orientation() == Qt::Vertical) {
-		double bounds_width = viewBox.Width();
-		double bounds_height = viewBox.Height();
+        float bounds_width = viewBox.Width();
+        float bounds_height = viewBox.Height();
 		viewBox.xmin -= numSteps * bounds_width * 0.05 * mouse_xd;
 		viewBox.xmax += numSteps * bounds_width * 0.05 * (1.0 - mouse_xd);
 		viewBox.ymin -= numSteps * bounds_height * 0.05 * (1.0 - mouse_yd);
@@ -155,24 +155,22 @@ void OpenGLWidget::wheelEvent(QWheelEvent *event)
 
 void OpenGLWidget::UpdateViewBoxFromBounds()
 {
-	double xmin = -180.0, xmax = 180.0, ymin = -90.0, ymax = 90.0;
+    float xmin = -180.0, xmax = 180.0, ymin = -90.0, ymax = 90.0;
 	xmin = bounds.xmin;
 	xmax = bounds.xmax;
 	ymin = bounds.ymin;
 	ymax = bounds.ymax;
-	Point<double> center = bounds.Center();
-	double xcenter = center.x;
-	double ycenter = center.y;
-	double xoffset = ((xmax - xmin) / 2.0);
-	double yoffset = ((ymax - ymin) / 2.0);
+    TPoint center = bounds.Center();
+    float xcenter = center.x();
+    float ycenter = center.y();
+    float xoffset = ((xmax - xmin) / 2.0);
+    float yoffset = ((ymax - ymin) / 2.0);
 
-    double ratio = width() / static_cast<double>(height());
+    float ratio = width() / static_cast<float>(height());
 	if (ratio > 1.0) {
 		xoffset = (xoffset * ratio);
-		yoffset = yoffset;
 	}
 	else {
-		xoffset = xoffset;
 		yoffset = (yoffset / ratio);
     }
 
@@ -308,7 +306,7 @@ void OpenGLWidget::BuildObject(const ShapeObject& shape)
 
 	objects.back().SetOffset(vertexCount);
 
-	const Point<double> *src_ptr = shape.GetVertices();
+    const Point<float> *src_ptr = shape.GetVertices();
 	Point<float> *dst_ptr = vertices + vertexCount;
 
 	for (int i = 0; i < count; i++) {
@@ -338,7 +336,7 @@ void OpenGLWidget::Zoom(const int32_t /*shapeIndex*/)
 
 	if (shapeIndex < 0) {
 		for (auto shape : objects) {
-			Box<double> shape_bounds = shape.GetBounds();
+            Box<float> shape_bounds = shape.GetBounds();
 			bounds.xmin = shape_bounds.xmin < bounds.xmin ? shape_bounds.xmin : bounds.xmin;
 			bounds.xmax = shape_bounds.xmax > bounds.xmax ? shape_bounds.xmax : bounds.xmax;
 			bounds.ymin = shape_bounds.ymin < bounds.ymin ? shape_bounds.ymin : bounds.ymin;
@@ -347,10 +345,10 @@ void OpenGLWidget::Zoom(const int32_t /*shapeIndex*/)
 	}
 	else {
 		if (objects.size() > shapeIndex) {
-			Box<double> shape_bounds = objects[shapeIndex].GetBounds();
-			double width = shape_bounds.Width();
-			double height = shape_bounds.Height();
-			double side = height > width ? height : width;
+            Box<float> shape_bounds = objects[shapeIndex].GetBounds();
+            float width = shape_bounds.Width();
+            float height = shape_bounds.Height();
+            float side = height > width ? height : width;
 			shape_bounds.Grow(side * 2);
 			bounds = shape_bounds;
 		}

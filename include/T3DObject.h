@@ -9,6 +9,8 @@ class T3DObject
 public:
     T3DObject();
 
+    virtual void Draw();
+
     void SetTexture(GLuint textureId);
 
 private:

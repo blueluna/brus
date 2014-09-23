@@ -9,6 +9,9 @@ public:
 
     void Set(float x, float y);
 
+    float x() const;
+    float y() const;
+
     bool operator == (const TPoint &other);
 
 public:

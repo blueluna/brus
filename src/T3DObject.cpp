@@ -8,3 +8,7 @@ void T3DObject::SetTexture(GLuint textureId)
 {
     TextureID = textureId;
 }
+
+void T3DObject::Draw()
+{
+}
